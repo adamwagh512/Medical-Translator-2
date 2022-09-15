@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
-import { ADD_SKILL } from '../../utils/mutations';
+import { ADD_MEDICAL_HISTORY } from '../../utils/mutations';
 
 import Auth from '../../utils/auth';
 
-const SkillForm = ({ profileId }) => {
-  const [skill, setSkill] = useState('');
+const MedicalHistoryForm = ({ profileId }) => {
+  const [medicalHistory, setMedicalHistory] = useState('');
 
-  const [addSkill, { error }] = useMutation(ADD_SKILL);
+  const [addMedicalHistory, { error }] = useMutation(ADD_SKILL);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const data = await addSkill({
-        variables: { profileId, skill },
+      const data = await addMedicalHistory({
+        variables: { profileId, medicalHistory },
       });
 
-      setSkill('');
+      setMedicalHistory('');
     } catch (err) {
       console.error(err);
     }
@@ -39,13 +39,13 @@ const SkillForm = ({ profileId }) => {
               placeholder="Endorse some skills..."
               value={skill}
               className="form-input w-100"
-              onChange={(event) => setSkill(event.target.value)}
+              onChange={(event) => setMedicalHistory(event.target.value)}
             />
           </div>
 
           <div className="col-12 col-lg-3">
             <button className="btn btn-info btn-block py-3" type="submit">
-              Endorse Skill
+              Medical History
             </button>
           </div>
           {error && (
@@ -56,7 +56,7 @@ const SkillForm = ({ profileId }) => {
         </form>
       ) : (
         <p>
-          You need to be logged in to endorse skills. Please{' '}
+          You need to be logged in to see Medical History. Please{' '}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
@@ -64,4 +64,4 @@ const SkillForm = ({ profileId }) => {
   );
 };
 
-export default SkillForm;
+export default MedicalHistoryForm;
